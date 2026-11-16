@@ -34,23 +34,3 @@ export function meta(...parts: (string | undefined | null | false)[]): string {
 export function prettyUrl(url?: string): string {
 	return url ? url.replace(/^https?:\/\//, '').replace(/\/$/, '') : '';
 }
-
-/**
- * JSON Resume skill levels are free text. Map common words to a meter value;
- * a number ("85" or "85%") is used as-is. Returns undefined if unknown.
- */
-export function levelToPercent(level?: string): number | undefined {
-	if (!level) return undefined;
-	const n = parseFloat(level);
-	if (!Number.isNaN(n)) return n;
-	const table: Record<string, number> = {
-		beginner: 30,
-		novice: 30,
-		intermediate: 55,
-		proficient: 70,
-		advanced: 80,
-		expert: 92,
-		master: 96
-	};
-	return table[level.trim().toLowerCase()];
-}
