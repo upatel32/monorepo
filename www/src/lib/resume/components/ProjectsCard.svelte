@@ -21,7 +21,9 @@
 					title={project.name ?? 'Untitled'}
 					tags={project.keywords}
 				>
-					{#if project.description}<p>{project.description}</p>{/if}
+					{#if project.summary ?? project.description}<p>
+							{project.summary ?? project.description}
+						</p>{/if}
 					{#if project.url}<a href={project.url} rel="external">{prettyUrl(project.url)} ↗</a>{/if}
 				</TimelineEntry>
 			{/each}

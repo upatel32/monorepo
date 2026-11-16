@@ -1,4 +1,4 @@
-import type { Location } from './types.ts';
+import type { EntryLocation } from './types.ts';
 
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
@@ -18,8 +18,10 @@ export function formatRange(start?: string, end?: string, opts?: { month?: boole
 	return s === e ? s : `${s}—${e}`;
 }
 
-export function formatLocation(loc?: Location): string {
+/** Accepts free text ("Remote") or a structured location. */
+export function formatLocation(loc?: EntryLocation): string {
 	if (!loc) return '';
+	if (typeof loc === 'string') return loc;
 	return [loc.city, loc.region ?? loc.countryCode].filter(Boolean).join(', ');
 }
 

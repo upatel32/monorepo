@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Card, Timeline, TimelineEntry } from '@amber/ui';
 	import type { Work } from '../types.ts';
-	import { formatRange, meta } from '../format.ts';
+	import { formatLocation, formatRange, meta } from '../format.ts';
 
 	interface Props {
 		work: Work[];
@@ -17,7 +17,7 @@
 		<Timeline>
 			{#each work as job, i (i)}
 				<TimelineEntry
-					meta={meta(formatRange(job.startDate, job.endDate), job.location)}
+					meta={meta(formatRange(job.startDate, job.endDate), formatLocation(job.location))}
 					title={job.position ?? 'Role'}
 					org={job.name}
 					orgHref={job.url}

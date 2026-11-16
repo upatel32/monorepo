@@ -8,6 +8,7 @@
 	"scripts": {
 		"dev": "yarn workspace www dev",
 		"build": "yarn workspace www build",
-		"check": "yarn workspace www check"
+		"check": "yarn workspace www check",
+		"validate:resume": "yarn workspace www validate:resume"
 	}
 }

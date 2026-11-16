@@ -22,7 +22,9 @@
 					org={edu.institution}
 					orgHref={edu.url}
 					tags={edu.courses}
-				/>
+				>
+					{#if edu.summary}<p>{edu.summary}</p>{/if}
+				</TimelineEntry>
 			{/each}
 			{#each certificates as cert, i (i)}
 				<TimelineEntry
