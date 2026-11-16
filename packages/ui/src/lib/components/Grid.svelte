@@ -23,6 +23,12 @@
 		gap: var(--ui-space-4);
 		margin-top: var(--ui-space-6);
 	}
+	@media print {
+		.ui-grid {
+			display: block;
+			margin-top: 0;
+		}
+	}
 	@media (max-width: 650px) {
 		.ui-grid {
 			grid-template-columns: minmax(0, 1fr);

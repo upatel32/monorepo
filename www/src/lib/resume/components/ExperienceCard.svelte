@@ -13,7 +13,7 @@
 </script>
 
 {#if work.length}
-	<Card {label} {id} wide>
+	<Card {label} printLabel="Experience" {id} wide>
 		<Timeline>
 			{#each work as job, i (i)}
 				<TimelineEntry

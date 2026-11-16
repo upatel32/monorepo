@@ -17,16 +17,18 @@
 	const eyebrow = $derived(meta(basics.label, formatLocation(basics.location)));
 </script>
 
-<Hero {eyebrow} {title}>
-	{#snippet lede()}
-		{#if basics.summary}<p>{basics.summary}</p>{/if}
-	{/snippet}
-	{#snippet actions()}
-		<Button variant="primary" href="#experience">View resume</Button>
-		{#if contact}<Button href="#contact">Contact</Button>{/if}
-		<Button variant="secondary" onclick={() => window.print()}>Print / PDF</Button>
-	{/snippet}
-	{#snippet aside()}
-		{#if available}<StatusBadge>Available for opportunities</StatusBadge>{/if}
-	{/snippet}
-</Hero>
+<div data-print="hide">
+	<Hero {eyebrow} {title}>
+		{#snippet lede()}
+			{#if basics.summary}<p>{basics.summary}</p>{/if}
+		{/snippet}
+		{#snippet actions()}
+			<Button variant="primary" href="#experience">View resume</Button>
+			{#if contact}<Button href="#contact">Contact</Button>{/if}
+			<Button variant="secondary" onclick={() => window.print()}>Print / PDF</Button>
+		{/snippet}
+		{#snippet aside()}
+			{#if available}<StatusBadge>Available for opportunities</StatusBadge>{/if}
+		{/snippet}
+	</Hero>
+</div>

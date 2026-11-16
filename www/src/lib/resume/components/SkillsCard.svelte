@@ -18,7 +18,7 @@
 </script>
 
 {#if groups.length || standalone.length}
-	<Card label="Skills / technologies" {id}>
+	<Card label="Skills / technologies" printLabel="Skills" {id}>
 		{#if standalone.length}
 			<TagList tags={standalone} label="Skills" />
 		{/if}

@@ -5,6 +5,7 @@
 		EducationCard,
 		ExperienceCard,
 		LanguagesInterestsCard,
+		PrintHeader,
 		ProjectsCard,
 		RawResumeCard,
 		ResumeHero,
@@ -38,6 +39,8 @@
 	<title>{basics.name ?? 'Resume'} — {basics.label ?? 'Resume'}</title>
 	{#if basics.summary}<meta name="description" content={basics.summary} />{/if}
 </svelte:head>
+
+<PrintHeader {basics} hidden={data.hidden} />
 
 <ResumeHero
 	{basics}

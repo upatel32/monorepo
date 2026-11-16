@@ -29,6 +29,16 @@
 		font-size: var(--ui-text-2xs);
 		line-height: 1.5;
 	}
+	@media print {
+		.ui-tag {
+			padding: 0;
+			margin: 0;
+			border: 0;
+			background: none;
+			color: var(--ui-text);
+			font-size: inherit;
+		}
+	}
 	a.ui-tag:hover {
 		border-color: var(--ui-gold);
 		color: var(--ui-incandescent);

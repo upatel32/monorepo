@@ -4,6 +4,7 @@ export * from './privacy.ts';
 export { Resume as ResumeSchema, parseResume, formatIssues, type ResumeIssue } from './schema.ts';
 
 export { default as ResumeHero } from './components/ResumeHero.svelte';
+export { default as PrintHeader } from './components/PrintHeader.svelte';
 export { default as ContactCard } from './components/ContactCard.svelte';
 export { default as ExperienceCard } from './components/ExperienceCard.svelte';
 export { default as SkillsCard } from './components/SkillsCard.svelte';

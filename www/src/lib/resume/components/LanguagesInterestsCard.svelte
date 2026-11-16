@@ -19,7 +19,7 @@
 </script>
 
 {#if langItems.length || interestTags.length}
-	<Card label="Off the clock" {id}>
+	<Card label="Off the clock" printLabel="Languages & interests" {id}>
 		{#if langItems.length}<DataList items={langItems} />{/if}
 		{#if interestTags.length}
 			<div class="interests">

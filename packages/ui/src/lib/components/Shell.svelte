@@ -23,6 +23,12 @@
 		margin: auto;
 		padding: 28px var(--ui-gutter) 80px;
 	}
+	@media print {
+		.ui-shell {
+			max-width: none;
+			padding: 0;
+		}
+	}
 	@media (max-width: 650px) {
 		.ui-shell {
 			padding-top: 20px;

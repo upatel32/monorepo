@@ -13,7 +13,11 @@
 </script>
 
 {#if education.length || certificates.length}
-	<Card label="Education / certs" {id}>
+	<Card
+		label="Education / certs"
+		printLabel={certificates.length ? 'Education & certifications' : 'Education'}
+		{id}
+	>
 		<Timeline>
 			{#each education as edu, i (i)}
 				<TimelineEntry
@@ -29,7 +33,7 @@
 			{#each certificates as cert, i (i)}
 				<TimelineEntry
 					marker="#"
-					meta={formatDate(cert.date, { month: true })}
+					meta={formatDate(cert.date)}
 					title={cert.name ?? 'Certificate'}
 					org={cert.issuer}
 					orgHref={cert.url}

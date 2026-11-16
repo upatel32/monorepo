@@ -1,21 +1,22 @@
 import type { EntryLocation } from './types.ts';
 
-const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+// Title case: the site uppercases dates with CSS, the printed résumé keeps them as-is.
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-/** "2022-03-01" → "MAR 2022", "2022" → "2022" */
-export function formatDate(iso?: string, { month = false } = {}): string {
+/** "2022-03-01" → "Mar 2022"; "2022" → "2022"; `{ month: false }` → year only */
+export function formatDate(iso?: string, { month = true } = {}): string {
 	if (!iso) return '';
 	const [y, m] = iso.split('-');
 	if (!month || !m) return y;
 	return `${MONTHS[Number(m) - 1] ?? ''} ${y}`.trim();
 }
 
-/** "2022—NOW", "2019—2022", or "2021" if start and end are the same year */
+/** "Mar 2022 – Present", "Jun 2019 – Mar 2022", or "May 2021" if start and end match */
 export function formatRange(start?: string, end?: string, opts?: { month?: boolean }): string {
 	const s = formatDate(start, opts);
-	const e = end ? formatDate(end, opts) : 'NOW';
+	const e = end ? formatDate(end, opts) : 'Present';
 	if (!s) return end ? e : '';
-	return s === e ? s : `${s}—${e}`;
+	return s === e ? s : `${s} – ${e}`;
 }
 
 /** Accepts free text ("Remote") or a structured location. */

@@ -38,7 +38,9 @@
 	{#if meta}<div class="meta">{meta}</div>{/if}
 	<h3 class="title">
 		{title}{#if org}
-			{' '}<span class="at">@</span>{' '}{#if orgHref}<a href={orgHref}>{org}</a>{:else}{org}{/if}
+			{' '}<span class="at">@</span>{' '}<span class="org"
+				>{#if orgHref}<a href={orgHref}>{org}</a>{:else}{org}{/if}</span
+			>
 		{/if}
 	</h3>
 	{#if children}<div class="body">{@render children()}</div>{/if}
@@ -104,5 +106,68 @@
 		position: absolute;
 		left: 0;
 		color: var(--ui-dim);
+	}
+	@media print {
+		/* Title left, dates right, everything else full width below. */
+		.ui-entry {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			column-gap: 12pt;
+			padding-bottom: 9pt;
+		}
+		.ui-entry > :global(*) {
+			grid-column: 1 / -1;
+		}
+		.ui-entry::before {
+			content: none;
+		}
+		.title {
+			grid-column: 1;
+			grid-row: 1;
+			font: 600 10pt / 1.3 var(--ui-font-print);
+			break-after: avoid;
+		}
+		.meta {
+			grid-column: 2;
+			grid-row: 1;
+			align-self: baseline;
+			font: 8pt / 1.3 var(--ui-font-mono);
+			letter-spacing: 0.02em;
+			text-transform: none;
+			color: var(--ui-dim);
+			white-space: nowrap;
+		}
+		.at {
+			font-size: 0;
+		}
+		.at::after {
+			content: '·';
+			font-size: 10pt;
+			color: var(--ui-dim);
+		}
+		.org {
+			font-weight: 400;
+			color: var(--ui-lava);
+		}
+		.body {
+			margin: 2pt 0 0;
+			color: var(--ui-muted);
+		}
+		.body :global(p) {
+			margin: 0;
+		}
+		.highlights {
+			margin: 3pt 0 0;
+			color: var(--ui-muted);
+		}
+		.highlights li {
+			padding-left: 11pt;
+			margin-top: 2pt;
+			break-inside: avoid;
+		}
+		.highlights li::before {
+			content: '•';
+			color: var(--ui-lava);
+		}
 	}
 </style>

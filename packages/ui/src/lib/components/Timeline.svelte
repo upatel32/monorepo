@@ -16,4 +16,11 @@
 		padding: 0 0 0 20px;
 		border-left: 1px solid var(--ui-crust-bright);
 	}
+	@media print {
+		.ui-timeline {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+	}
 </style>

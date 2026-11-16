@@ -27,4 +27,17 @@
 		content: '## ';
 		color: var(--ui-dim);
 	}
+	@media print {
+		.ui-label {
+			flex: 1;
+			font: 600 8.5pt / 1.2 var(--ui-font-mono);
+			letter-spacing: 0.14em;
+			color: var(--ui-lava);
+			border-bottom: 0.75pt solid var(--ui-lava);
+			padding-bottom: 3pt;
+		}
+		.ui-label::before {
+			content: none;
+		}
+	}
 </style>

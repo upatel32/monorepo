@@ -123,35 +123,76 @@ textarea {
 	}
 }
 
-/* Print: drop the atmosphere, keep the content. */
+/*
+ * Print: a clean, professional document. Drop the atmosphere, keep the content.
+ *  - US Letter with ~0.6in margins
+ *  - sans-serif body for density and legibility; mono only for names, headings and dates
+ *  - near-black text with a single burnt-orange accent
+ * Mark elements with data-print="hide" (screen only) or data-print="only" (print only).
+ */
+[data-print='only'] {
+	display: none !important;
+}
+
+@page {
+	size: letter;
+	margin: 0.55in 0.6in 0.6in;
+}
+
 @media print {
 	:root {
 		color-scheme: light;
-		--ui-text: #1a0d07;
-		--ui-incandescent: #000;
-		--ui-muted: #5a3322;
-		--ui-dim: #7a4a33;
-		--ui-hot: #b8400c;
-		--ui-lava: #b8400c;
-		--ui-gold: #7a4a00;
-		--ui-crust: #d8b8a4;
-		--ui-crust-bright: #c09078;
+		--ui-text: #1d1d1f;
+		--ui-incandescent: #111;
+		--ui-muted: #333;
+		--ui-dim: #6b6b6b;
+		--ui-hot: #a63a0c;
+		--ui-lava: #a63a0c;
+		--ui-gold: #333;
+		--ui-crust: #d9d4cf;
+		--ui-crust-bright: #c9bfb7;
+		--ui-rule: #e2ddd8;
 		--ui-card-bg: none;
 		--ui-card-shadow: none;
 		--ui-glow-sm: none;
 		--ui-glow-md: none;
 		--ui-glow-display: none;
 		--ui-glow-dot: none;
+		--ui-font-print: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	}
 	html,
 	body {
 		background: #fff !important;
 	}
+	body {
+		font: 9.5pt / 1.42 var(--ui-font-print);
+		color: var(--ui-text);
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
 	body::before,
 	body::after {
 		display: none;
 	}
+	a,
+	a:hover {
+		color: inherit;
+		text-shadow: none;
+	}
 	[data-print='hide'] {
 		display: none !important;
+	}
+	[data-print='only'] {
+		display: revert !important;
+	}
+	h1,
+	h2,
+	h3 {
+		break-after: avoid;
+	}
+	p,
+	li {
+		orphans: 2;
+		widows: 2;
 	}
 }

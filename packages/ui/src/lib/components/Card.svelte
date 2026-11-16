@@ -8,6 +8,8 @@
 
 	interface Props extends HTMLAttributes<HTMLElement> {
 		label?: string;
+		/** Alternative label for print, e.g. "Experience" instead of "Experience / version history" */
+		printLabel?: string;
 		wide?: boolean;
 		as?: 'section' | 'article' | 'div' | 'aside';
 		/** Extra content on the right of the label row (e.g. a link) */
@@ -17,6 +19,7 @@
 
 	let {
 		label,
+		printLabel,
 		wide = false,
 		as = 'section',
 		actions,
@@ -29,7 +32,13 @@
 <svelte:element this={as} class={['ui-card', { wide }, className]} {...rest}>
 	{#if label || actions}
 		<div class="head">
-			{#if label}<SectionLabel>{label}</SectionLabel>{/if}
+			{#if label}
+				<SectionLabel>
+					{#if printLabel}<span data-print="hide">{label}</span><span data-print="only"
+							>{printLabel}</span
+						>{:else}{label}{/if}
+				</SectionLabel>
+			{/if}
 			{#if actions}<div class="actions">{@render actions()}</div>{/if}
 		</div>
 	{/if}
@@ -62,7 +71,13 @@
 		.ui-card {
 			border: 0;
 			padding: 0;
-			break-inside: avoid;
+			margin: 0 0 14pt;
+		}
+		.head {
+			margin-bottom: 7pt;
+		}
+		.actions {
+			display: none;
 		}
 	}
 </style>

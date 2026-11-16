@@ -28,4 +28,20 @@
 		margin: 0 -3px;
 		padding: 0;
 	}
+	@media print {
+		/* Flowing text: "TypeScript · React · Node.js". The dot hangs off the previous item
+		   (joined by a no-break space) so wrapped lines never start with a separator. */
+		.ui-taglist {
+			display: block;
+			margin: 2pt 0 0;
+		}
+		li {
+			display: inline;
+		}
+		li:not(:last-child)::after {
+			content: '\00a0·';
+			margin-right: 0.45em;
+			color: var(--ui-dim);
+		}
+	}
 </style>

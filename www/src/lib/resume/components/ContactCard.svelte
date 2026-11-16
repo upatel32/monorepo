@@ -33,7 +33,8 @@
 {#snippet phone()}<RevealContact code={hidden.phone!} kind="phone" />{/snippet}
 
 {#if items.length}
-	<Card label="Contact" {id}>
+	<!-- Printed résumés get contact details from PrintHeader instead. -->
+	<Card label="Contact" {id} data-print="hide">
 		<DataList {items} />
 	</Card>
 {/if}

@@ -12,7 +12,7 @@
 </script>
 
 {#if projects.length}
-	<Card label="Projects / side quests" {id}>
+	<Card label="Projects / side quests" printLabel="Projects" {id}>
 		<Timeline>
 			{#each projects as project, i (i)}
 				<TimelineEntry
