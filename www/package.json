@@ -9,7 +9,7 @@
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "wrangler types --check && vite build",
+		"build": "wrangler types --check && node scripts/snapshot-resume.ts && vite build",
 		"preview": "wrangler dev .svelte-kit/cloudflare/_worker.js --port 4173",
 		"deploy": "wrangler deploy",
 		"prepare": "svelte-kit sync || echo ''",
@@ -18,7 +18,8 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"gen": "wrangler types",
-		"validate:resume": "node scripts/validate-resume.ts"
+		"validate:resume": "node scripts/validate-resume.ts",
+		"snapshot:resume": "node scripts/snapshot-resume.ts"
 	},
 	"devDependencies": {
 		"@amber/ui": "0.1.0",

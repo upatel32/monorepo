@@ -1,0 +1,5 @@
+# Copy to .dev.vars for local dev. In production: `wrangler secret put GITHUB_TOKEN`.
+# Optional. A fine-grained token with no extra permissions is enough to read a public gist.
+# With it, the site reads the gist via the GitHub API (always current) instead of the raw URL
+# (no token needed, but GitHub's CDN can lag up to ~5 minutes behind an edit).
+GITHUB_TOKEN=

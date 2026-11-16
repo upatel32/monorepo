@@ -1,0 +1,198 @@
+{
+	"fetchedAt": "2026-11-16T16:51:30.899Z",
+	"source": "https://gist.github.com/upatel32/70c5be9edab15b2de790a960ef94eb76",
+	"resume": {
+		"basics": {
+			"name": "Urmit Patel",
+			"label": "Senior Software Engineer",
+			"image": "https://avatars0.githubusercontent.com/u/17918553?v=4",
+			"email": "up112@protonmail.com",
+			"summary": "Software engineer with over 9 years of experience in full stack web application development. My skills include JavaScript, TypeScript, React.js, Next.js, Node.js, GraphQL, GoLang, AWS, and Kubernetes.",
+			"location": {
+				"city": "Atlanta",
+				"countryCode": "US",
+				"region": "GA"
+			},
+			"profiles": [
+				{
+					"network": "GitHub",
+					"username": "upatel32",
+					"url": "https://github.com/upatel32"
+				},
+				{
+					"network": "LinkedIn",
+					"username": "urmit-s-patel",
+					"url": "https://linkedin.com/in/urmit-s-patel"
+				}
+			]
+		},
+		"work": [
+			{
+				"name": "Cloudflare",
+				"position": "Senior Software Engineer",
+				"url": "https://cloudflare.com",
+				"startDate": "2025-01-01",
+				"endDate": "2026-05-01",
+				"summary": "Provided full-stack capabilities to the FinTech / Billing organization, serving as a core driver for the architecture and modernization of the platform's transactional pipelines. Mandate included designing and scaling the next generation of Cloudflare's core Unified Checkout Platform to unify legacy infrastructure, driving cross-functional alignment, and eliminating systemic data anomalies. Regularly participated in the core infrastructure on-call rotation, managing critical engineering escalations, and performing deep-dive root-cause analyses under tight operational SLAs.",
+				"highlights": [
+					"Unified Checkout Platform – Architected and executed the roadmap for the future of Cloudflare's unified checkout system. Successfully streamlined separate purchase flows into a singular, highly resilient checkout engine capable of securely processing global transaction volumes with 3DS multi-factor authentication for online transactions.",
+					"Billing Drift Remediation – Spearheaded the identification and technical resolution of complex billing 'drift' across systems. Reconciled asynchronous state mismatches between third-party payment gateways, internal accounting ledgers, and live edge service provisioning to enforce total data integrity and protect revenue pipelines."
+				]
+			},
+			{
+				"name": "Databricks",
+				"position": "Senior IT Software Engineer",
+				"url": "https://databricks.com",
+				"startDate": "2022-09-01",
+				"endDate": "2025-12-01",
+				"summary": "Developed custom full-stack applications by collaborating with internal stakeholders as a founding member of the Employee Experience team. Various responsibilities included writing technical architecture documents, mentoring junior engineers and interns all while shipping code.",
+				"highlights": [
+					"PERF Tool - Delivered an application to facilitate promotion and calibration cycles from scratch in four months. PERF Tool's stack was meticulously chosen to enable fast delivery and onboarding of new engineers: React, Relay, GraphQL, Go, ent, Atlas, PostgreSQL, Kubernetes, Helm."
+				]
+			},
+			{
+				"name": "Formidable (acquired by Nearform)",
+				"position": "Senior Software Engineer",
+				"url": "https://nearform.com",
+				"startDate": "2020-08-01",
+				"endDate": "2022-08-01",
+				"summary": "Embedded with client development teams as a full stack engineer. Engagements varied from migrating existing sites to greenfield projects. Frontends were implemented in Next.js with GraphQL or REST backends. Common project responsibilities often included creating React components as specified by a design team, unit testing using Jest and RTL, and code reviews. Received promotion to Senior Software Engineer in January 2022.",
+				"highlights": [
+					"Car Enthusiast Social Network - Launched a new social media network and marketplace for car enthusiasts build on Next.js. Implemented a backend ETL pipeline from DynamoDB to ElasticSearch that served data to the frontend via GraphQL in order to provide users with a snappy search and filtering experience when browsing vehicles. Created, wrote, and maintained E2E tests to catch any UX regressions.",
+					"E-commerce Site Migration - Migrated site to Next.js driven by in an in house CMS. Utilized run type checking library io-ts to ensure type safety throughout code base and contributed to UI component library."
+				]
+			},
+			{
+				"name": "AvalonBay Communities",
+				"position": "Full Stack Engineer",
+				"url": "https://www.avaloncommunities.com",
+				"startDate": "2019-07-01",
+				"endDate": "2020-07-01",
+				"summary": "Understanding the needs of various stakeholders and translating them into clean, scalable, easy-to-maintain code in an Agile environment. In turn, allowing AvalonBay to implement their reimagined operating model as part of an Agile development team collaborating closely with various vendors. Applications include customer-facing web applications using cutting-edge open source frameworks, to highly-available RESTful services on .NET Core. Advocating for the implementation & utilization of best practices, and approaching complex and/or difficult situations with a positive, solutions-driven mindset.",
+				"highlights": [
+					"Self Guided Touring – Developed a screening application to allow prospects to upload documents and selfies in a clean UI to submit background checks. Clear background checks enable prospects to tour apartments by themselves and/or after-hours thus reducing strain on community associates and increasing tour volume.",
+					"Express Move In – Streamlined the move in process for new residents by providing a one-stop-shop web application for paying deposits, first month's rent, purchasing renter's insurance, etc. Thereby reducing the strain on community associates."
+				]
+			},
+			{
+				"name": "Capital One",
+				"position": "Software Developer",
+				"url": "https://www.capitalone.com",
+				"startDate": "2017-07-01",
+				"endDate": "2019-07-01",
+				"summary": "As a member of Capital One's Cyber Operations department, worked closely with teams within the organization to create web applications to resolve pain points in their workflow. Emphasized quick delivery for feature requests and bug fixes through ad-hoc and weekly meetings. Presented products for various events throughout Capital One from recruiting events to executive audiences.",
+				"highlights": [
+					"Apollo – Developed a use case manager to handle requests for the Cyber Threat Strategy (CTS) team. Apollo integrated closely with Jira allowing the CTS team to efficiently manage their workflow.",
+					"Jarvis – Replaced five separate applications saving hundreds of thousands of dollars in vendor costs and allows for end-to-end, single-pane of glass management of Cyber Alerts, Cases, and Investigations. Jarvis contained built in automation such as notifications and data enrichments allowing analysts the ability to perform integrated threat research and sandboxing of threats associated with open cases while also saving the analysts time."
+				]
+			}
+		],
+		"volunteer": [
+			{
+				"organization": "Habitat for Humanity",
+				"position": "Volunteer Builder",
+				"url": "https://www.habitat.org",
+				"startDate": "2020-01-01",
+				"summary": "Assisted with local construction and community rebuilding initiatives."
+			}
+		],
+		"education": [
+			{
+				"institution": "Georgia Institute of Technology",
+				"url": "https://gatech.edu",
+				"area": "Computer Engineering",
+				"studyType": "Bachelor of Science",
+				"startDate": "2013-08-01",
+				"endDate": "2017-05-01",
+				"score": "Highest Honor"
+			}
+		],
+		"skills": [
+			{
+				"name": "TypeScript",
+				"level": "Proficient"
+			},
+			{
+				"name": "React",
+				"level": "Expert"
+			},
+			{
+				"name": "Node.js",
+				"level": "Intermediate"
+			},
+			{
+				"name": "AWS",
+				"level": "Intermediate"
+			},
+			{
+				"name": "GraphQL",
+				"level": "Intermediate"
+			},
+			{
+				"name": "Next.js",
+				"level": "Proficient"
+			},
+			{
+				"name": "CSS",
+				"level": "Proficient"
+			},
+			{
+				"name": "HTML",
+				"level": "Proficient"
+			},
+			{
+				"name": "ElasticSearch",
+				"level": "Proficient"
+			},
+			{
+				"name": "Cypress",
+				"level": "Proficient"
+			},
+			{
+				"name": "Kubernetes",
+				"level": "Proficient"
+			},
+			{
+				"name": "PostgreSQL",
+				"level": "Proficient"
+			},
+			{
+				"name": "Go",
+				"level": "Intermediate"
+			},
+			{
+				"name": "Jest",
+				"level": "Proficient"
+			},
+			{
+				"name": "React Testing Library",
+				"level": "Proficient"
+			},
+			{
+				"name": "Django",
+				"level": "Proficient"
+			},
+			{
+				"name": "JavaScript",
+				"level": "Expert"
+			}
+		],
+		"meta": {
+			"version": "v1.0.0",
+			"_hiddenWork": [
+				{
+					"name": "Sandia National Laboratories",
+					"position": "Intern",
+					"url": "https://www.sandia.gov",
+					"startDate": "2016-05-01",
+					"endDate": "2016-07-01",
+					"summary": "Interned for the Center for Cyber Defenders",
+					"highlights": [
+						"Starscream – Reverse engineered binary source code extracted from an embedded system through use of IDA Pro software. Utilized static analysis on reverse engineered code to build intuition to find and assess possible vulnerabilities.",
+						"Initiated development a network analyzer for Remote Desktop Protocol (RDP) using Bro Network Security Monitor."
+					]
+				}
+			]
+		}
+	}
+}

@@ -16,13 +16,22 @@
 	const resume = $derived(data.resume);
 	const basics = $derived(resume.basics ?? {});
 
-	const nav: NavItem[] = [
-		{ href: '#experience', label: 'Experience' },
-		{ href: '#skills', label: 'Skills' },
-		{ href: '#projects', label: 'Projects' },
-		{ href: '#education', label: 'Education' },
-		{ href: '#json', label: 'JSON' }
-	];
+	// Only link to sections that have something in them.
+	const nav: NavItem[] = $derived(
+		[
+			{ href: '#experience', label: 'Experience', show: resume.work?.length },
+			{ href: '#skills', label: 'Skills', show: resume.skills?.length },
+			{ href: '#projects', label: 'Projects', show: resume.projects?.length },
+			{
+				href: '#education',
+				label: 'Education',
+				show: resume.education?.length || resume.certificates?.length
+			},
+			{ href: '#json', label: 'JSON', show: true }
+		]
+			.filter((item) => item.show)
+			.map(({ href, label }) => ({ href, label }))
+	);
 </script>
 
 <svelte:head>
@@ -43,7 +52,7 @@
 	</div>
 	<ProjectsCard projects={resume.projects ?? []} />
 	<EducationCard education={resume.education ?? []} certificates={resume.certificates ?? []} />
-	<RawResumeCard {resume} source={data.source} />
+	<RawResumeCard {resume} source={data.source} status={data.status} fetchedAt={data.fetchedAt} />
 </Grid>
 
 <style>

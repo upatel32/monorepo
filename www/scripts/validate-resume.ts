@@ -1,54 +1,55 @@
 /**
  * Validate resume JSON against the zod schema.
  *
- *   yarn validate:resume                 # the live gist (via the GitHub API, so it's never stale)
+ *   yarn validate:resume                 # the live gist
  *   yarn validate:resume ./resume.json   # a local file
  *   yarn validate:resume https://…       # any URL that returns resume JSON
  *
+ * For the gist, set GITHUB_TOKEN to read through the API (always current) rather than the
+ * raw URL, which GitHub's CDN can serve up to ~5 minutes stale.
  * Exits with code 1 when the resume is invalid, so it can gate CI or a pre-deploy step.
  */
 import { readFile } from 'node:fs/promises';
-import { parseResume } from '../src/lib/resume/schema.ts';
-import { RESUME_API_URL, RESUME_GIST_FILE, RESUME_GIST_URL } from '../src/lib/resume/source.ts';
+import { fetchResume, ResumeFetchError } from '../src/lib/resume/fetch.ts';
+import { parseResume, type ResumeIssue } from '../src/lib/resume/schema.ts';
+import { RESUME_GIST_URL } from '../src/lib/resume/source.ts';
+import type { Resume } from '../src/lib/resume/types.ts';
 
-async function load(arg?: string): Promise<{ label: string; text: string }> {
-	if (!arg) {
-		const res = await fetch(RESUME_API_URL, {
-			headers: { accept: 'application/vnd.github+json', 'user-agent': 'resume-validator' }
-		});
-		if (!res.ok) throw new Error(`GitHub API responded ${res.status} ${res.statusText}`);
-		const gist = (await res.json()) as { files: Record<string, { content?: string }> };
-		const file = gist.files[RESUME_GIST_FILE];
-		if (!file?.content) throw new Error(`Gist has no ${RESUME_GIST_FILE} file`);
-		return { label: RESUME_GIST_URL, text: file.content };
-	}
-	if (/^https?:\/\//.test(arg)) {
-		const res = await fetch(arg);
-		if (!res.ok) throw new Error(`${arg} responded ${res.status} ${res.statusText}`);
-		return { label: arg, text: await res.text() };
-	}
-	return { label: arg, text: await readFile(arg, 'utf8') };
-}
-
-const { label, text } = await load(process.argv[2]);
-console.log(`Validating ${label}`);
-
-let json: unknown;
-try {
-	json = JSON.parse(text);
-} catch (err) {
-	console.error(`✘ Not valid JSON: ${(err as Error).message}`);
+function fail(message: string, issues: ResumeIssue[] = []): never {
+	console.error(`✘ ${message}`);
+	for (const { path, message } of issues) console.error(`  ${path || '(root)'}: ${message}`);
 	process.exit(1);
 }
 
-const result = parseResume(json);
-if (!result.success) {
-	console.error(`✘ ${result.issues.length} problem(s):`);
-	for (const { path, message } of result.issues) console.error(`  ${path || '(root)'}: ${message}`);
-	process.exit(1);
+async function fromArg(arg: string): Promise<Resume> {
+	const text = /^https?:\/\//.test(arg)
+		? await fetch(arg).then((r) => (r.ok ? r.text() : fail(`${arg} responded ${r.status}`)))
+		: await readFile(arg, 'utf8');
+	let json: unknown;
+	try {
+		json = JSON.parse(text);
+	} catch (err) {
+		fail(`Not valid JSON: ${(err as Error).message}`);
+	}
+	const result = parseResume(json);
+	if (!result.success) fail(`${result.issues.length} problem(s):`, result.issues);
+	return result.data;
 }
 
-const r = result.data;
+const arg = process.argv[2];
+console.log(`Validating ${arg ?? RESUME_GIST_URL}`);
+
+let r: Resume;
+if (arg) {
+	r = await fromArg(arg);
+} else {
+	try {
+		r = (await fetchResume({ token: process.env.GITHUB_TOKEN, timeoutMs: 15_000 })).resume;
+	} catch (err) {
+		fail((err as Error).message, err instanceof ResumeFetchError ? err.issues : []);
+	}
+}
+
 const counts = (['work', 'volunteer', 'education', 'skills', 'projects'] as const)
 	.map((k) => `${r[k]?.length ?? 0} ${k}`)
 	.join(', ');
