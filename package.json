@@ -1,0 +1,13 @@
+{
+	"name": "monorepo",
+	"private": true,
+	"workspaces": [
+		"www",
+		"packages/*"
+	],
+	"scripts": {
+		"dev": "yarn workspace www dev",
+		"build": "yarn workspace www build",
+		"check": "yarn workspace www check"
+	}
+}

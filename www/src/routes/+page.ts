@@ -1,3 +1,13 @@
-// since there's no dynamic data here, we can prerender
-// it so that it gets served as a static asset in production
+import { sampleResume } from '#lib/resume/index.ts';
+import type { PageLoad } from './$types';
+
+// Static for now. When the gist is wired up, fetch it here (or in a +page.server.ts /
+// remote function) and return it as `resume` — the page only depends on that shape.
 export const prerender = true;
+
+export const load: PageLoad = () => {
+	return {
+		resume: sampleResume,
+		source: undefined as string | undefined
+	};
+};

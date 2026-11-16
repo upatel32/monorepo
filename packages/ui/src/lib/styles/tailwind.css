@@ -1,0 +1,28 @@
+/*
+ * Optional Tailwind v4 bridge: exposes the design tokens as Tailwind utilities
+ * (bg-basalt, text-lava, border-crust, font-pixel, shadow-glow …).
+ * Import this from a stylesheet that already does `@import 'tailwindcss'`.
+ */
+@theme inline {
+	--color-basalt: var(--ui-basalt);
+	--color-panel: var(--ui-panel);
+	--color-panel-2: var(--ui-panel-2);
+	--color-crust: var(--ui-crust);
+	--color-crust-bright: var(--ui-crust-bright);
+	--color-rule: var(--ui-rule);
+	--color-molten: var(--ui-molten);
+	--color-lava: var(--ui-lava);
+	--color-hot: var(--ui-hot);
+	--color-gold: var(--ui-gold);
+	--color-incandescent: var(--ui-incandescent);
+	--color-text: var(--ui-text);
+	--color-muted: var(--ui-muted);
+	--color-dim: var(--ui-dim);
+	--color-on-lava: var(--ui-on-lava);
+
+	--font-mono: var(--ui-font-mono);
+	--font-pixel: var(--ui-font-pixel);
+
+	--shadow-glow: var(--ui-glow-md);
+	--text-shadow-glow: var(--ui-glow-sm);
+}

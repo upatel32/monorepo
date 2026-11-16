@@ -1,54 +1,56 @@
 <script lang="ts">
-	import Counter from './Counter.svelte';
+	import { Grid, SectionNav, type NavItem } from '@amber/ui';
+	import {
+		ContactCard,
+		EducationCard,
+		ExperienceCard,
+		LanguagesInterestsCard,
+		ProjectsCard,
+		RawResumeCard,
+		ResumeHero,
+		SkillsCard
+	} from '#lib/resume/index.ts';
+	import type { PageProps } from './$types';
+
+	let { data }: PageProps = $props();
+	const resume = $derived(data.resume);
+	const basics = $derived(resume.basics ?? {});
+
+	const nav: NavItem[] = [
+		{ href: '#experience', label: 'Experience' },
+		{ href: '#skills', label: 'Skills' },
+		{ href: '#projects', label: 'Projects' },
+		{ href: '#education', label: 'Education' },
+		{ href: '#json', label: 'JSON' }
+	];
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>{basics.name ?? 'Resume'} — {basics.label ?? 'Resume'}</title>
+	{#if basics.summary}<meta name="description" content={basics.summary} />{/if}
 </svelte:head>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<enhanced:img class="welcome-image" src="#lib/images/svelte-welcome.png" alt="Welcome" />
-		</span>
+<ResumeHero {basics} available={resume.meta?.available === true} />
 
-		to your new<br />SvelteKit app
-	</h1>
+<SectionNav items={nav} label="Resume sections" />
 
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
+<Grid>
+	<ExperienceCard work={resume.work ?? []} />
+	<SkillsCard skills={resume.skills ?? []} />
+	<div class="stack">
+		<ContactCard {basics} />
+		<LanguagesInterestsCard languages={resume.languages} interests={resume.interests} />
+	</div>
+	<ProjectsCard projects={resume.projects ?? []} />
+	<EducationCard education={resume.education ?? []} certificates={resume.certificates ?? []} />
+	<RawResumeCard {resume} source={data.source} />
+</Grid>
 
 <style>
-	section {
+	.stack {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome-image {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+		gap: var(--ui-space-4);
+		min-width: 0;
 	}
 </style>

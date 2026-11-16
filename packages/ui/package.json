@@ -1,0 +1,29 @@
+{
+	"name": "@amber/ui",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Lava glow design system (Svelte 5)",
+	"type": "module",
+	"svelte": "./src/lib/index.ts",
+	"types": "./src/lib/index.ts",
+	"exports": {
+		".": {
+			"types": "./src/lib/index.ts",
+			"svelte": "./src/lib/index.ts",
+			"default": "./src/lib/index.ts"
+		},
+		"./styles.css": "./src/lib/styles/index.css",
+		"./tokens.css": "./src/lib/styles/tokens.css",
+		"./tailwind.css": "./src/lib/styles/tailwind.css"
+	},
+	"sideEffects": [
+		"**/*.css"
+	],
+	"dependencies": {
+		"@fontsource/ibm-plex-mono": "^5.2.7",
+		"@fontsource/vt323": "^5.2.7"
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	}
+}

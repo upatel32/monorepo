@@ -1,0 +1,123 @@
+/* Global base styles: page background, scanlines, links, selection, motion + print. */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--ui-basalt);
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	background:
+		radial-gradient(ellipse at 58% -12%, #6b260f66, transparent 47%),
+		radial-gradient(ellipse at 8% 32%, #32140755, transparent 38%),
+		linear-gradient(155deg, #120d0a, #0c0a09 70%);
+	background-color: var(--ui-basalt);
+	background-attachment: fixed;
+	color: var(--ui-text);
+	font: var(--ui-text-sm) / 1.7 var(--ui-font-mono);
+	-webkit-font-smoothing: antialiased;
+}
+
+/* CRT scanlines. Opt out with <html data-scanlines="off">. */
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 100;
+	opacity: 0.12;
+	background: repeating-linear-gradient(0deg, transparent 0 3px, #ff7a2810 4px);
+}
+:root[data-scanlines='off'] body::before {
+	display: none;
+}
+
+a {
+	color: var(--ui-hot);
+	text-decoration: none;
+	transition:
+		color 0.15s,
+		text-shadow 0.15s;
+}
+a:hover {
+	color: var(--ui-incandescent);
+	text-shadow: 0 0 12px #ff702b;
+}
+
+:focus-visible {
+	outline: 1px dashed var(--ui-gold);
+	outline-offset: 3px;
+}
+
+::selection {
+	background: var(--ui-lava);
+	color: var(--ui-on-lava);
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+	color: inherit;
+}
+
+.ui-visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Print: drop the atmosphere, keep the content. */
+@media print {
+	:root {
+		color-scheme: light;
+		--ui-text: #1a0d07;
+		--ui-incandescent: #000;
+		--ui-muted: #5a3322;
+		--ui-dim: #7a4a33;
+		--ui-hot: #b8400c;
+		--ui-lava: #b8400c;
+		--ui-gold: #7a4a00;
+		--ui-crust: #d8b8a4;
+		--ui-crust-bright: #c09078;
+		--ui-card-bg: none;
+		--ui-card-shadow: none;
+		--ui-glow-sm: none;
+		--ui-glow-md: none;
+		--ui-glow-display: none;
+		--ui-glow-dot: none;
+	}
+	html,
+	body {
+		background: #fff !important;
+	}
+	body::before {
+		display: none;
+	}
+	[data-print='hide'] {
+		display: none !important;
+	}
+}
