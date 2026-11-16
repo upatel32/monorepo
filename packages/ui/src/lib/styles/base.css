@@ -23,17 +23,50 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
-/* CRT scanlines. Opt out with <html data-scanlines="off">. */
-body::before {
+/*
+ * CRT screen: scanlines (::before) plus a vignette and a slow rolling refresh band (::after).
+ * Tune with the --ui-scanline-* / --ui-crt-* tokens; opt out with <html data-scanlines="off">.
+ * The band stops under prefers-reduced-motion (see below).
+ */
+body::before,
+body::after {
 	content: '';
 	position: fixed;
 	inset: 0;
 	pointer-events: none;
 	z-index: 100;
-	opacity: 0.12;
-	background: repeating-linear-gradient(0deg, transparent 0 3px, #ff7a2810 4px);
 }
-:root[data-scanlines='off'] body::before {
+body::before {
+	background:
+		repeating-linear-gradient(
+			to bottom,
+			var(--ui-scanline-dark) 0 1px,
+			transparent 1px var(--ui-scanline-pitch)
+		),
+		repeating-linear-gradient(
+			to bottom,
+			transparent 0 2px,
+			var(--ui-scanline-glow) 2px var(--ui-scanline-pitch)
+		);
+	/* Faint RGB fringing, like a shadow mask. */
+	box-shadow: inset 0 0 0 100vmax var(--ui-crt-tint);
+}
+body::after {
+	background:
+		radial-gradient(ellipse at center, transparent 58%, var(--ui-crt-vignette) 100%),
+		linear-gradient(to bottom, transparent, var(--ui-crt-band), transparent) 0 -40vh / 100% 40vh
+			no-repeat;
+	animation: ui-crt-roll 9s linear infinite;
+}
+@keyframes ui-crt-roll {
+	to {
+		background-position:
+			0 0,
+			0 140vh;
+	}
+}
+:root[data-scanlines='off'] body::before,
+:root[data-scanlines='off'] body::after {
 	display: none;
 }
 
@@ -114,7 +147,8 @@ textarea {
 	body {
 		background: #fff !important;
 	}
-	body::before {
+	body::before,
+	body::after {
 		display: none;
 	}
 	[data-print='hide'] {
