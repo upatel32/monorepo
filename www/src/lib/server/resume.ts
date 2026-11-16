@@ -11,6 +11,7 @@
  */
 import { env, waitUntil } from 'cloudflare:workers';
 import { fetchResume, ResumeFetchError } from '#lib/resume/fetch.ts';
+import { redactContact, type HiddenContact } from '#lib/resume/privacy.ts';
 import type { Resume } from '#lib/resume/types.ts';
 import snapshot from '#lib/resume/snapshot.json';
 
@@ -20,7 +21,10 @@ const FRESH_MS = 60_000;
 export type ResumeStatus = 'live' | 'cached' | 'stale' | 'snapshot';
 
 export interface ResumeResult {
+	/** Resume with email/phone removed — safe to render and serialise. */
 	resume: Resume;
+	/** Email/phone, encoded. The page decodes them only when a visitor clicks to reveal. */
+	hidden: HiddenContact;
 	status: ResumeStatus;
 	/** When this copy was fetched from GitHub (ISO string), or when the snapshot was taken. */
 	fetchedAt: string;
@@ -28,6 +32,7 @@ export interface ResumeResult {
 
 interface Entry {
 	resume: Resume;
+	hidden: HiddenContact;
 	fetchedAt: number;
 }
 
@@ -42,7 +47,7 @@ function token(): string | undefined {
 /** One fetch at a time per isolate, however many requests arrive while it's running. */
 function refresh(fetch: typeof globalThis.fetch): Promise<Entry> {
 	inflight ??= fetchResume({ token: token(), fetch })
-		.then(({ resume }) => (cached = { resume, fetchedAt: Date.now() }))
+		.then(({ resume }) => (cached = { ...redactContact(resume), fetchedAt: Date.now() }))
 		.catch((err: unknown) => {
 			const issues = err instanceof ResumeFetchError && err.issues;
 			console.error(`[resume] refresh failed: ${(err as Error).message}`, issues || '');
@@ -53,8 +58,15 @@ function refresh(fetch: typeof globalThis.fetch): Promise<Entry> {
 }
 
 function fromSnapshot(): ResumeResult {
-	const { resume, fetchedAt } = snapshot as unknown as { resume: Resume; fetchedAt: string };
-	return { resume, status: 'snapshot', fetchedAt };
+	const data = snapshot as unknown as { resume: Resume; hidden?: HiddenContact; fetchedAt: string };
+	// The snapshot is stored redacted; redacting again also covers older snapshots that weren't.
+	const { resume, hidden } = redactContact(data.resume);
+	return {
+		resume,
+		hidden: { ...data.hidden, ...hidden },
+		status: 'snapshot',
+		fetchedAt: data.fetchedAt
+	};
 }
 
 /** @param fetch pass SvelteKit's `fetch` from the load event */
@@ -79,5 +91,9 @@ export async function getResume(fetch: typeof globalThis.fetch): Promise<ResumeR
 }
 
 function toResult(entry: Entry): Omit<ResumeResult, 'status'> {
-	return { resume: entry.resume, fetchedAt: new Date(entry.fetchedAt).toISOString() };
+	return {
+		resume: entry.resume,
+		hidden: entry.hidden,
+		fetchedAt: new Date(entry.fetchedAt).toISOString()
+	};
 }

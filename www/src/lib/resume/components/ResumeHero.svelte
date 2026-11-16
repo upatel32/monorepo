@@ -6,9 +6,11 @@
 	interface Props {
 		basics: Basics;
 		available?: boolean;
+		/** Show a Contact button that jumps to the contact card */
+		contact?: boolean;
 	}
 
-	let { basics, available = false }: Props = $props();
+	let { basics, available = false, contact = false }: Props = $props();
 
 	// Split the name across lines for the big pixel heading: "ADA LOVELACE" → ["ADA", "LOVELACE"]
 	const title = $derived((basics.name ?? 'Anonymous').toUpperCase().split(/\s+/));
@@ -21,7 +23,7 @@
 	{/snippet}
 	{#snippet actions()}
 		<Button variant="primary" href="#experience">View resume</Button>
-		{#if basics.email}<Button href="mailto:{basics.email}">Contact</Button>{/if}
+		{#if contact}<Button href="#contact">Contact</Button>{/if}
 		<Button variant="secondary" onclick={() => window.print()}>Print / PDF</Button>
 	{/snippet}
 	{#snippet aside()}

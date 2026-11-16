@@ -1,5 +1,6 @@
 export type * from './types.ts';
 export * from './format.ts';
+export * from './privacy.ts';
 export { Resume as ResumeSchema, parseResume, formatIssues, type ResumeIssue } from './schema.ts';
 
 export { default as ResumeHero } from './components/ResumeHero.svelte';

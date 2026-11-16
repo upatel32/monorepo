@@ -17,7 +17,9 @@
 		<div class="row">
 			<dt>{item.label}</dt>
 			<dd>
-				{#if item.href}<a href={item.href}>{item.value}</a>{:else}{item.value}{/if}
+				{#if item.render}{@render item.render()}{:else if item.href}<a href={item.href}
+						>{item.value}</a
+					>{:else}{item.value}{/if}
 			</dd>
 		</div>
 	{/each}

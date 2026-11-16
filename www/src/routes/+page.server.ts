@@ -7,10 +7,11 @@ import type { PageServerLoad } from './$types';
 export const prerender = false;
 
 export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
-	const { resume, status, fetchedAt } = await getResume(fetch);
+	// `resume` arrives with email/phone stripped; they travel encoded in `hidden`.
+	const { resume, hidden, status, fetchedAt } = await getResume(fetch);
 
 	// Let browsers reuse the page briefly; past that, serve it stale while revalidating.
 	setHeaders({ 'cache-control': 'public, max-age=60, stale-while-revalidate=300' });
 
-	return { resume, status, fetchedAt, source: RESUME_GIST_URL };
+	return { resume, hidden, status, fetchedAt, source: RESUME_GIST_URL };
 };

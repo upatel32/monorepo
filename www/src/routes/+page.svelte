@@ -39,7 +39,11 @@
 	{#if basics.summary}<meta name="description" content={basics.summary} />{/if}
 </svelte:head>
 
-<ResumeHero {basics} available={resume.meta?.available === true} />
+<ResumeHero
+	{basics}
+	available={resume.meta?.available === true}
+	contact={!!(data.hidden.email || data.hidden.phone)}
+/>
 
 <SectionNav items={nav} label="Resume sections" />
 
@@ -47,7 +51,7 @@
 	<ExperienceCard work={resume.work ?? []} />
 	<SkillsCard skills={resume.skills ?? []} />
 	<div class="stack">
-		<ContactCard {basics} />
+		<ContactCard {basics} hidden={data.hidden} />
 		<LanguagesInterestsCard languages={resume.languages} interests={resume.interests} />
 	</div>
 	<ProjectsCard projects={resume.projects ?? []} />

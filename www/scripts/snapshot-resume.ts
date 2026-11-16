@@ -11,6 +11,7 @@
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { fetchResume, ResumeFetchError } from '../src/lib/resume/fetch.ts';
+import { redactContact } from '../src/lib/resume/privacy.ts';
 import { RESUME_GIST_URL } from '../src/lib/resume/source.ts';
 
 const out = new URL('../src/lib/resume/snapshot.json', import.meta.url);
@@ -20,7 +21,12 @@ try {
 		token: process.env.GITHUB_TOKEN,
 		timeoutMs: 15_000
 	});
-	const snapshot = { fetchedAt: new Date().toISOString(), source: RESUME_GIST_URL, resume };
+	// Stored redacted (email/phone encoded) so the address isn't sitting in plain text in the repo.
+	const snapshot = {
+		fetchedAt: new Date().toISOString(),
+		source: RESUME_GIST_URL,
+		...redactContact(resume)
+	};
 	await writeFile(out, JSON.stringify(snapshot, null, '\t') + '\n');
 	console.log(`✔ Resume snapshot updated from ${origin} (${resume.basics?.name ?? 'no name'})`);
 } catch (err) {

@@ -1,21 +1,23 @@
 <script lang="ts">
 	import { Card, DataList, type DataItem } from '@amber/ui';
 	import type { Basics } from '../types.ts';
+	import type { HiddenContact } from '../privacy.ts';
 	import { formatLocation, prettyUrl } from '../format.ts';
+	import RevealContact from './RevealContact.svelte';
 
 	interface Props {
 		basics: Basics;
+		/** Email / phone, encoded server-side so they aren't scrapeable */
+		hidden?: HiddenContact;
 		id?: string;
 	}
 
-	let { basics, id = 'contact' }: Props = $props();
+	let { basics, hidden = {}, id = 'contact' }: Props = $props();
 
 	const items = $derived.by(() => {
 		const rows: DataItem[] = [];
-		if (basics.email)
-			rows.push({ label: 'Email', value: basics.email, href: `mailto:${basics.email}` });
-		if (basics.phone)
-			rows.push({ label: 'Phone', value: basics.phone, href: `tel:${basics.phone}` });
+		if (hidden.email) rows.push({ label: 'Email', value: '', render: email });
+		if (hidden.phone) rows.push({ label: 'Phone', value: '', render: phone });
 		if (basics.url) rows.push({ label: 'Web', value: prettyUrl(basics.url), href: basics.url });
 		const loc = formatLocation(basics.location);
 		if (loc) rows.push({ label: 'Location', value: loc });
@@ -26,6 +28,9 @@
 		return rows;
 	});
 </script>
+
+{#snippet email()}<RevealContact code={hidden.email!} kind="email" />{/snippet}
+{#snippet phone()}<RevealContact code={hidden.phone!} kind="phone" />{/snippet}
 
 {#if items.length}
 	<Card label="Contact" {id}>
