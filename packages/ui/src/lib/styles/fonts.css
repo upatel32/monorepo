@@ -1,0 +1,51 @@
+/*
+ * Web fonts + size-matched fallbacks, to stop text jumping when the fonts arrive.
+ *
+ * 1. Latin subsets only: the full fontsource CSS also pulls Cyrillic, Greek and Vietnamese faces.
+ * 2. While a web font downloads, the browser draws text in a fallback. If the fallback's
+ *    characters are a different width, lines rewrap or shift when the real font swaps in.
+ *    The faces below wrap common local monospace fonts with `size-adjust` so their character
+ *    width matches the web font exactly:
+ *      IBM Plex Mono  0.600em per character
+ *      VT323          0.400em per character
+ *    (Menlo ≈ 0.602em, Courier New = 0.600em, Consolas = 0.550em)
+ *    Each local font gets its own family name because one @font-face can only carry one size-adjust.
+ */
+@import '@fontsource/ibm-plex-mono/latin-400.css';
+@import '@fontsource/ibm-plex-mono/latin-500.css';
+@import '@fontsource/ibm-plex-mono/latin-600.css';
+@import '@fontsource/vt323/latin-400.css';
+
+/* Body: IBM Plex Mono stand-ins */
+@font-face {
+	font-family: 'Plex Fallback Menlo';
+	src: local('Menlo');
+	size-adjust: 99.65%;
+}
+@font-face {
+	font-family: 'Plex Fallback Consolas';
+	src: local('Consolas');
+	size-adjust: 109.1%;
+}
+@font-face {
+	font-family: 'Plex Fallback Courier';
+	src: local('Courier New');
+	size-adjust: 100%;
+}
+
+/* Display: VT323 stand-ins (VT323 is much narrower than ordinary monospace fonts) */
+@font-face {
+	font-family: 'VT323 Fallback Menlo';
+	src: local('Menlo');
+	size-adjust: 66.44%;
+}
+@font-face {
+	font-family: 'VT323 Fallback Consolas';
+	src: local('Consolas');
+	size-adjust: 72.73%;
+}
+@font-face {
+	font-family: 'VT323 Fallback Courier';
+	src: local('Courier New');
+	size-adjust: 66.67%;
+}
